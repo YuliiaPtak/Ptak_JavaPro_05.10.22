@@ -1,5 +1,4 @@
 public class StringUtils {
-
     public static int findSymbolOccurrence(String str, char symbol) {
         int charCounter = 0;
 

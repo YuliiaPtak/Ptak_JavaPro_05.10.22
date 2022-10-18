@@ -9,11 +9,11 @@ public class App {
 
         while (true) {
             String playerWord = scanner.next();
+
             if (guessTheWord.isGuessed(playerWord)) {
                 System.out.println("Congratulations! You win!");
                 return;
             }
-
             System.out.println("Wrong!");
             System.out.println("Guessed symbols: " + guessTheWord.getGuessedSymbols(playerWord));
         }

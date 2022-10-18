@@ -1,5 +1,5 @@
 public class GuessTheWordGame {
-    private String[] WORDS = {"apple", "orange", "lemon", "banana", "apricot", "avocado",
+    private String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado",
             "broccoli", "carrot", "cherry", "garlic", "grape", "melon",
             "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea",
             "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
@@ -7,7 +7,7 @@ public class GuessTheWordGame {
     private String guessedSymbols = "###############";
 
     public GuessTheWordGame() {
-        computerWord = WORDS[(int) (Math.random() * WORDS.length)];
+        computerWord = words[(int) (Math.random() * words.length)];
     }
 
     public boolean isGuessed(String playerWord) {
@@ -17,7 +17,7 @@ public class GuessTheWordGame {
     public String getGuessedSymbols(String playerWord) {
         char[] guessedSymbols = this.guessedSymbols.toCharArray();
 
-        for (int i = 0; i < Math.min(computerWord.length(), playerWord.length());) {
+        for (int i = 0; i < Math.min(computerWord.length(), playerWord.length()); ) {
             if (playerWord.charAt(i) == computerWord.charAt(i)) {
                 guessedSymbols[i] = computerWord.charAt(i);
             }
