@@ -11,10 +11,7 @@ public class StringUtils {
     }
 
     public static int findWordPosition(String source, String target) {
-        if (source.contains(target)) {
-            return source.indexOf(target);
-        }
-        return -1;
+        return source.indexOf(target);
     }
 
     public static String stringReverse(String str) {
