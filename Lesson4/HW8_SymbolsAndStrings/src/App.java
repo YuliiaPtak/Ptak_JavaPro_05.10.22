@@ -15,7 +15,7 @@ public class App {
                 return;
             }
             System.out.println("Wrong!");
-            System.out.println("Guessed symbols: " + guessTheWord.getGuessedSymbols(playerWord));
+            System.out.println("Guessed symbols: " + guessTheWord.computeGuessedSymbols(playerWord));
         }
     }
 }
