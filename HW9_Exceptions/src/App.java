@@ -1,3 +1,6 @@
+import exceptions.ArrayDataException;
+import exceptions.ArraySizeException;
+
 public class App {
     public static void main(String[] args) {
         String[][] strings = {

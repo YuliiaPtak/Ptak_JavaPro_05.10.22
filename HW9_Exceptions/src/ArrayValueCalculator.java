@@ -1,3 +1,6 @@
+import exceptions.ArrayDataException;
+import exceptions.ArraySizeException;
+
 public class ArrayValueCalculator {
     private static final int ARRAY_SIZE = 4;
 
