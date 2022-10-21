@@ -1,4 +1,4 @@
-public class ArrayDataException extends Throwable {
+public class ArrayDataException extends Exception {
     public ArrayDataException(String message) {
         super(message);
     }

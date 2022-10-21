@@ -11,7 +11,7 @@ public class App {
             System.out.println(ArrayValueCalculator.calculateNumbers(strings));
         } catch (ArraySizeException | ArrayDataException e) {
             e.printStackTrace();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             System.out.println("UNKNOWN ERROR!");
             e.printStackTrace();
         }
