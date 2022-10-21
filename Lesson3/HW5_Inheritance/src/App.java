@@ -1,5 +1,4 @@
 public class App {
-
     public static void main(String[] args) {
         Animal cat = new Cat("Butch");
         cat.run(200);
