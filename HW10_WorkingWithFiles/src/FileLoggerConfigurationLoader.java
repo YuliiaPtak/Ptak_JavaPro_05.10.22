@@ -4,48 +4,63 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Properties;
 
 public class FileLoggerConfigurationLoader {
-    private String path;
-    private LoggingLevel loggingLevel;
-    private int sizeLimit;
-    private String format;
-    private boolean needToCreateNewFile;
+    private final String path;
 
-    public FileLoggerConfiguration load(String filePath) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
-            while (bufferedReader.ready()) {
-                String line = bufferedReader.readLine();
-                initialize(line);
-            }
+    public FileLoggerConfigurationLoader(String path) {
+        this.path = path;
+    }
+
+    public FileLoggerConfiguration load() {
+        Properties properties = getProperties(path);
+
+        String fileName = getProperty(properties, "FILE");
+        String level = getProperty(properties, "LEVEL");
+        String maxSize = getProperty(properties, "MAX_SIZE");
+        String format = getProperty(properties, "FORMAT");
+        String needToCreateNewFile = getProperty(properties, "NEED_TO_CREATE_NEW_FILE");
+
+        this.validateValues(fileName, level, maxSize);
+        return new FileLoggerConfiguration(fileName, LoggingLevel.valueOf(level), Integer.parseInt(maxSize), format, Boolean.parseBoolean(needToCreateNewFile));
+    }
+
+    private void validateValues(String fileName, String level, String maxSize) {
+        if (!Path.of(fileName).toAbsolutePath().startsWith((new File("")).getAbsolutePath())) {
+            throw new RuntimeException("Path is not within project directory");
+        }
+
+        try {
+            LoggingLevel.valueOf(level);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Incorrect value at " + level + ", must be " + Arrays.toString(LoggingLevel.values()), e);
+        }
+
+        try {
+            Integer.parseInt(maxSize);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Impossible to convert " + maxSize + " to int", e);
+        }
+    }
+
+    private String getProperty(Properties properties, String key) {
+        String property = properties.getProperty(key);
+        if (property != null && !property.isBlank()) {
+            return property;
+        } else {
+            throw new RuntimeException("No property " + key);
+        }
+    }
+
+    private Properties getProperties(String path) {
+        Properties properties = new Properties();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path));) {
+            properties.load(bufferedReader);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return new FileLoggerConfiguration(path, loggingLevel, sizeLimit, format, needToCreateNewFile);
-    }
-
-    private void initialize(String line) {
-        if (line.startsWith("FILE: ")) {
-            path = line.substring("FILE: ".length());
-            if (!Path.of(path).toAbsolutePath().startsWith(new File("").getAbsolutePath())) {
-                throw new RuntimeException("Wrong path");
-            }
-        } else if (line.startsWith("LEVEL: ")) {
-            try {
-                loggingLevel = LoggingLevel.valueOf(line.substring("LEVEL: ".length()));
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Incorrect value at " + line + ", must be " + Arrays.toString(LoggingLevel.values()), e);
-            }
-        } else if (line.startsWith("MAX_SIZE: ")) {
-            try {
-                sizeLimit = Integer.parseInt(line.substring("MAX_SIZE: ".length()));
-            } catch (NumberFormatException e) {
-                throw new RuntimeException("Impossible to convert " + line + " to int", e);
-            }
-        } else if (line.startsWith("FORMAT: ")) {
-            format = line.substring("FORMAT: ".length());
-        } else if (line.startsWith("NEED_TO_CREATE_NEW_FILE: ")) {
-            needToCreateNewFile = Boolean.parseBoolean(line.substring("NEED_TO_CREATE_NEW_FILE: ".length()));
-        } else throw new RuntimeException("Unknown configuration property at " + line);
+        return properties;
     }
 }
