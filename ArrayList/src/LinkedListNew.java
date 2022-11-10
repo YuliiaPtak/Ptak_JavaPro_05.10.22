@@ -15,7 +15,6 @@ public class LinkedListNew implements MyList {
         else
             lastNode.next = newNode;
         size++;
-
         return true;
     }
 
@@ -36,7 +35,6 @@ public class LinkedListNew implements MyList {
                 }
             }
         }
-
         return false;
     }
 
@@ -71,7 +69,6 @@ public class LinkedListNew implements MyList {
             objects[i] = current.value;
             current = current.next;
         }
-
         return objects;
     }
 
@@ -109,7 +106,6 @@ public class LinkedListNew implements MyList {
         for (int i = 0; i < index; i++) {
             currentElement = currentElement.next;
         }
-
         return currentElement.value;
     }
 

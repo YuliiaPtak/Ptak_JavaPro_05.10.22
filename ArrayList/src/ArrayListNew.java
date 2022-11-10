@@ -35,7 +35,6 @@ public class ArrayListNew implements MyList {
         if ((newSize = size - 1) > i)
             System.arraycopy(objects, i + 1, objects, i, newSize - i);
         objects[size = newSize] = null;
-
         return true;
     }
 
