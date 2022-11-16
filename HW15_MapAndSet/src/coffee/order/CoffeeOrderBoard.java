@@ -10,7 +10,7 @@ public class CoffeeOrderBoard {
     private final List<Order> orders = new ArrayList<>();
 
     public int add(String name) throws OrderAmountException {
-        if (orders.size() > 1000) {
+        if (orders.size() >= 1000) {
             throw new OrderAmountException("Too many orders!");
         }
 
