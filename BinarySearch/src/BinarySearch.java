@@ -9,12 +9,12 @@ public class BinarySearch {
                 return middleIndex;
             }
 
-            if (firstIndex == lasIndex) {
+            if (firstIndex >= lasIndex) {
                 break;
             }
 
             if(array[middleIndex] > target) {
-                lasIndex = firstIndex != middleIndex ? middleIndex - 1 : middleIndex;
+                lasIndex = firstIndex < middleIndex ? middleIndex - 1 : middleIndex;
             } else if(array[middleIndex] < target) {
                 firstIndex = middleIndex + 1;
             }
