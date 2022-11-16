@@ -1,6 +1,17 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        int[] array = new int[]{1,3,5,7,9,11,13};
-        System.out.println(BinarySearch.binarySearch(array,12));
+        int[] array = new int[1_000_000];
+        int target = 2;
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (int) (Math.random() * 100_000);
+        }
+
+        Arrays.sort(array);
+
+        int index = BinarySearch.binarySearch(array, target);
+
+        System.out.println("index = "  + index + ", value = " + array[index] + ", target = " + target);
     }
 }

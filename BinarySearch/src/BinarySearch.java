@@ -14,7 +14,7 @@ public class BinarySearch {
             }
 
             if(array[middleIndex] > target) {
-                lasIndex = middleIndex - 1;
+                lasIndex = firstIndex != middleIndex ? middleIndex - 1 : middleIndex;
             } else if(array[middleIndex] < target) {
                 firstIndex = middleIndex + 1;
             }
