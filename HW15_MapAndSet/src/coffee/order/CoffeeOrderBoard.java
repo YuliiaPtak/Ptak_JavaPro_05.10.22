@@ -30,6 +30,7 @@ public class CoffeeOrderBoard {
         for (Order order : orders) {
             if (order.number == number) {
                 orders.remove(order);
+                break;
             }
         }
     }
