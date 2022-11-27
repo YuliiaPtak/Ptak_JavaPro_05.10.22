@@ -1,11 +1,11 @@
 package petrolStation;
 
 public class PetrolStation implements GasStation {
-    private volatile int actualAmount;
+    private volatile int litersAtCistern;
     private volatile int amountForCreatingOrder;
 
     public PetrolStation(int amount) {
-        this.actualAmount = amount;
+        this.litersAtCistern = amount;
         amountForCreatingOrder = amount;
     }
 
@@ -14,6 +14,7 @@ public class PetrolStation implements GasStation {
         try {
             createOrder(name, request);
         } catch (TooBigOrderException e) {
+            System.out.println(e.getMessage());
             return;
         }
 
@@ -24,18 +25,17 @@ public class PetrolStation implements GasStation {
             throw new RuntimeException(e);
         }
 
-        System.out.println(name + " has got " + request);
+        System.out.println(name + " has got " + request + ", liters at cistern " + litersAtCistern);
     }
 
     private synchronized void decreaseAmount(int request) {
-        actualAmount -= request;
+        litersAtCistern -= request;
     }
 
     private synchronized void createOrder(String name, int request) throws TooBigOrderException {
         System.out.println(name + " ordered " + request + " liters");
         if (request > amountForCreatingOrder) {
-            System.out.println(name + "\'s order is too big");
-            throw new TooBigOrderException("too big order!");
+            throw new TooBigOrderException(name + "\'s order is too big");
         }
         amountForCreatingOrder -= request;
         System.out.println(amountForCreatingOrder + " liters left");

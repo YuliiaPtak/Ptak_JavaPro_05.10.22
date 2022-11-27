@@ -2,18 +2,18 @@ package petrolStation;
 
 public class RefuelFlow implements Runnable {
     private final int order;
-    private final PetrolStation petrolStation;
+    private final GasStation gasStation;
     private final String name;
 
-    public RefuelFlow(int order, PetrolStation petrolStation, String name) {
+    public RefuelFlow(int order, GasStation gasStation, String name) {
         this.order = order;
-        this.petrolStation = petrolStation;
+        this.gasStation = gasStation;
         this.name = name;
     }
 
     @Override
     public void run() {
-        petrolStation.doRefuel(order, name);
+        gasStation.doRefuel(order, name);
     }
 }
 
