@@ -1,29 +1,19 @@
 package coffee.order;
 
-import coffee.order.exceptions.OrderAmountException;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class CoffeeOrderBoard {
     private int number = 0;
-    private final List<Order> orders = new ArrayList<>();
+    private final Queue<Order> orders = new LinkedList<>();
 
-    public int add(String name) throws OrderAmountException {
-        if (orders.size() >= 1000) {
-            throw new OrderAmountException("Too many orders!");
-        }
-
-        if (number == 1000) {
-            number = 0;
-        }
-
+    public int add(String name) {
         orders.add(new Order(++number, name));
         return number;
     }
 
     public void deliver() {
-        orders.remove(orders.get(0));
+        orders.poll();
     }
 
     public void deliver(int number) {
