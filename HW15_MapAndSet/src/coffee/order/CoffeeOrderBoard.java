@@ -5,6 +5,7 @@ import java.util.Queue;
 
 public class CoffeeOrderBoard {
     private int number = 0;
+
     private final Queue<Order> orders = new LinkedList<>();
 
     public int add(String name) {
