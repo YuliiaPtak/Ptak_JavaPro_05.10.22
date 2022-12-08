@@ -1,22 +1,22 @@
 package threadSafeList;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ThreadSafeList<T> extends CopyOnWriteArrayList<T> {
+public class ThreadSafeList<E> {
+    private final List<E> threadSafeList = new ArrayList<>();
 
-    @Override
-    public synchronized boolean add(T value) {
-        return super.add(value);
+    public synchronized boolean add(E value) {
+        return threadSafeList.add(value);
     }
 
-    @Override
-    public synchronized T remove(int index) {
-        return super.remove(index);
+    public synchronized E remove(int index) {
+        return threadSafeList.remove(index);
     }
 
-    @Override
-    public synchronized T get(int index) {
-        return super.get(index);
+    public synchronized E get(int index) {
+        return threadSafeList.get(index);
     }
 }
