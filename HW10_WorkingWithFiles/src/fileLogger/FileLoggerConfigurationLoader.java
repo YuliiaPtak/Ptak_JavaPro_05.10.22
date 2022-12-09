@@ -1,3 +1,7 @@
+package fileLogger;
+
+import logger.LoggerConfigurationLoader;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,13 +10,14 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Properties;
 
-public class FileLoggerConfigurationLoader {
+public class FileLoggerConfigurationLoader implements LoggerConfigurationLoader<FileLoggerConfiguration> {
     private final String path;
 
     public FileLoggerConfigurationLoader(String path) {
         this.path = path;
     }
 
+    @Override
     public FileLoggerConfiguration load() {
         Properties properties = getProperties(path);
 
@@ -23,7 +28,13 @@ public class FileLoggerConfigurationLoader {
         String needToCreateNewFile = getProperty(properties, "NEED_TO_CREATE_NEW_FILE");
 
         this.validateValues(fileName, level, maxSize);
-        return new FileLoggerConfiguration(fileName, LoggingLevel.valueOf(level), Integer.parseInt(maxSize), format, Boolean.parseBoolean(needToCreateNewFile));
+        return new FileLoggerConfiguration(
+                fileName,
+                LoggingLevel.valueOf(level),
+                Integer.parseInt(maxSize),
+                format,
+                Boolean.parseBoolean(needToCreateNewFile)
+        );
     }
 
     private void validateValues(String fileName, String level, String maxSize) {

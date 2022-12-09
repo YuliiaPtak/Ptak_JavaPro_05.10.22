@@ -1,3 +1,5 @@
+package fileLogger;
+
 public class FileLoggerConfiguration {
     private final String path;
     private final LoggingLevel loggingLevel;

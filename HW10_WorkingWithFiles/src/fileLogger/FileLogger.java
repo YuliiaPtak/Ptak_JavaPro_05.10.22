@@ -1,3 +1,7 @@
+package fileLogger;
+
+import logger.Logger;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -5,7 +9,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FileLogger {
+public class FileLogger implements Logger {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS");
     private final FileLoggerConfiguration config;
@@ -17,6 +21,7 @@ public class FileLogger {
         path = buildFilePath();
     }
 
+    @Override
     public void debug(String message) {
         if (config.getLoggingLevel().equals(LoggingLevel.INFO)) {
             return;
@@ -24,6 +29,7 @@ public class FileLogger {
         log(buildMessage(message, LoggingLevel.DEBUG));
     }
 
+    @Override
     public void info(String message) {
         log(buildMessage(message, LoggingLevel.INFO));
     }
