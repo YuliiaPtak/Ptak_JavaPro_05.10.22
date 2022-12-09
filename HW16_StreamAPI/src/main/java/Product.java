@@ -1,11 +1,11 @@
 import java.time.LocalDateTime;
 
 public class Product {
-    private String category;
-    private double price;
-    private boolean neededDiscount;
-    private LocalDateTime createDate;
-    private int identificationNumber;
+    private final String category;
+    private final double price;
+    private final boolean neededDiscount;
+    private final LocalDateTime createDate;
+    private final int identificationNumber;
 
     public Product(String category, double price, boolean neededDiscount, LocalDateTime createDate, int identificationNumber) {
         this.category = category;
