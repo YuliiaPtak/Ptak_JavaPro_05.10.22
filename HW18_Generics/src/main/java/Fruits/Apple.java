@@ -1,7 +1,7 @@
 package Fruits;
 
 public class Apple extends Fruit {
-    public Apple(int weight) {
+    public Apple(double weight) {
         super(weight);
     }
 }

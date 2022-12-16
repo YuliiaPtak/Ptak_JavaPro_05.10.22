@@ -30,4 +30,8 @@ public class FruitBox<T extends Fruit> {
         addFruits(fruits);
         fruits.clear();
     }
+
+    public List<T> getFruits() {
+        return fruits;
+    }
 }
