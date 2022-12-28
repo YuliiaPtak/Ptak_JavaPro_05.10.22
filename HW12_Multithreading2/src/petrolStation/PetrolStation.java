@@ -22,11 +22,7 @@ public class PetrolStation implements GasStation {
     }
 
     public void startService(int petrolRequest, String name) {
-        if (isOverFlowed()) {
-            waitInLine();
-        }
-
-        numberOfBusyDispensers.incrementAndGet();
+        checkAvailabilityOfDispensers();
 
         try {
             createOrder(name, petrolRequest);
@@ -42,7 +38,18 @@ public class PetrolStation implements GasStation {
         leavePetrolStation();
     }
 
-    private boolean isOverFlowed() {
+    private synchronized void checkAvailabilityOfDispensers() {
+        if (isAllBusy()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        numberOfBusyDispensers.incrementAndGet();
+    }
+
+    private boolean isAllBusy() {
         return numberOfBusyDispensers.get() >= numberOfDispensers;
     }
 
@@ -72,16 +79,6 @@ public class PetrolStation implements GasStation {
 
     private synchronized void decreaseAvailableAmountOfFuel(int petrolRequest) {
         availableAmountOfFuel -= petrolRequest;
-    }
-
-    private synchronized void waitInLine() {
-        if (isOverFlowed()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
     private synchronized void leavePetrolStation() {
