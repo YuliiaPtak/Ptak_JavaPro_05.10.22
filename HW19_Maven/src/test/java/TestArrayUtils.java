@@ -13,7 +13,7 @@ public class TestArrayUtils {
     @Test
     public void testFindMaxValue() {
         int actual = ArrayUtils.findMaxValue(new int[]{8, 35, 4, 47, 19, -94, 88});
-        LoggerService.getInstance().info("testFindMinValue: expected - " + 88 + ", actual - " + actual);
+        LoggerService.getInstance().info("testFindMaxValue: expected - " + 88 + ", actual - " + actual);
         Assertions.assertEquals(88, actual);
     }
 }
