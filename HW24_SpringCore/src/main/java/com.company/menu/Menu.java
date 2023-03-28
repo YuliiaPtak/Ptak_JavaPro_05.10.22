@@ -14,7 +14,6 @@ public class Menu {
     public Menu() {
         var context = new AnnotationConfigApplicationContext(Config.class);
         cart = context.getBean(Cart.class);
-        Cart cart1 = context.getBean(Cart.class);
     }
 
     public void run() {
